@@ -13,7 +13,7 @@ const list = {
   actions: {
     async loadFullList({ commit }) {
       await axios.get('https://api.publicapis.org/entries').then((res) => {
-        commit('setList', res.data)
+        commit('setList', res.data.entries)
       })
     },
   },
