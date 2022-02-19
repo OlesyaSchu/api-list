@@ -5,7 +5,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Home',
+  mounted() {
+    this.$store.dispatch('list/loadFullList')
+  },
+  computed: {
+    ...mapGetters({
+      list: 'list/getList',
+    }),
+  },
 }
 </script>
