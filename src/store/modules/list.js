@@ -4,10 +4,28 @@ const list = {
   namespaced: true,
   state: {
     list: [],
+    filters: {},
   },
   mutations: {
     setList(state, payload) {
       state.list = payload
+    },
+    setFilters(state, payload) {
+      const prop = Object.keys(payload)[0]
+      // if selected all categories
+      const isAllCategories = prop === 'Category' && payload[prop] === 'All'
+      // if found filter with the value
+      if (state.filters[prop] === payload[prop] || isAllCategories) {
+        // delete it
+        delete state.filters[prop]
+      }
+      // if didn't
+      else {
+        // set new value
+        state.filters[prop] = payload[prop]
+      }
+      // refresh filters
+      state.filters = Object.assign({}, state.filters)
     },
   },
   actions: {
@@ -18,10 +36,22 @@ const list = {
     },
   },
   getters: {
-    getList: (state) => {
-      return state.list
+    getList: (state, getters) => {
+      return Object.keys(state.filters).length
+        ? getters.getFilteredList
+        : state.list
     },
-    // TODO: add getFavorites
+    getFilteredList: (state) => {
+      let newList = []
+      // for each filter
+      for (let filter in state.filters) {
+        newList = state.list.filter((item) => {
+          // compare with each item in list
+          return item[filter] === state.filters[filter]
+        })
+      }
+      return newList
+    },
   },
 }
 
