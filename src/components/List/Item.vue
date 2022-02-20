@@ -15,6 +15,10 @@ export default {
       type: Object,
       required: true,
     },
+    isHead: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
