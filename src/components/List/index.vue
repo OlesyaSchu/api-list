@@ -35,4 +35,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.list {
+  max-width: 800px;
+  margin: 20px auto;
+}
+</style>
