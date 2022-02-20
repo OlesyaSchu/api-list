@@ -33,6 +33,11 @@ const list = {
       // refresh filters
       state.filters = Object.assign({}, state.filters)
     },
+    setFavorites(state, payload) {
+      state.list.forEach((item) => {
+        if (item.Link === payload) item.favorite = !item.favorite
+      })
+    },
   },
   actions: {
     async loadFullList({ commit }) {

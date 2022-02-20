@@ -8,7 +8,13 @@
     <td class="auth">{{ item.Auth }}</td>
     <td class="https">{{ item.HTTPS }}</td>
     <td class="category">{{ item.Category }}</td>
-    <td class="favorite"><istar v-if="!isHead" :checked="item.favorite" /></td>
+    <td class="favorite">
+      <istar
+        @click.native="setFavorite(item.Link)"
+        v-if="!isHead"
+        :checked="item.favorite"
+      />
+    </td>
   </tr>
 </template>
 
@@ -24,6 +30,11 @@ export default {
     isHead: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    setFavorite(link) {
+      this.$store.commit('list/setFavorites', link)
     },
   },
   components: {
@@ -45,7 +56,7 @@ export default {
     padding: 20px 10px;
   }
   .link {
-    color: inherit;
+    color: rgb(123, 111, 228);
     text-decoration: none;
   }
   .description {
