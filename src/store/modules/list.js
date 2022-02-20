@@ -20,8 +20,12 @@ const list = {
       const prop = Object.keys(payload)[0]
       // if selected all categories
       const isAllCategories = prop === 'Category' && payload[prop] === 'All'
+      // if filters contain the filter
+      const hasProperty =
+        Object.prototype.hasOwnProperty.call(state.filters, prop) &&
+        state.filters[prop] === payload[prop]
       // if found filter with the value
-      if (state.filters[prop] === payload[prop] || isAllCategories) {
+      if (hasProperty || isAllCategories) {
         // delete it
         delete state.filters[prop]
       }
@@ -54,13 +58,13 @@ const list = {
     },
     getFilteredList: (state) => {
       let newList = []
-      // for each filter
-      for (let filter in state.filters) {
-        newList = state.list.filter((item) => {
-          // compare with each item in list
-          return item[filter] === state.filters[filter]
-        })
-      }
+      // for each list item
+      newList = state.list.filter((item) => {
+        // compare with each filter
+        return Object.keys(state.filters).reduce((prev, filter) => {
+          return prev && item[filter] === state.filters[filter]
+        }, true)
+      })
       return newList
     },
   },
