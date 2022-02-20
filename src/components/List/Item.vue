@@ -8,10 +8,13 @@
     <td class="auth">{{ item.Auth }}</td>
     <td class="https">{{ item.HTTPS }}</td>
     <td class="category">{{ item.Category }}</td>
+    <td class="favorite"><istar v-if="!isHead" :checked="item.favorite" /></td>
   </tr>
 </template>
 
 <script>
+import istar from '@/components/icons/star'
+
 export default {
   props: {
     item: {
@@ -22,6 +25,9 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  components: {
+    istar,
   },
 }
 </script>
@@ -36,7 +42,7 @@ export default {
 
   & > * {
     vertical-align: middle;
-    padding: 20px 5px;
+    padding: 20px 10px;
   }
   .link {
     color: inherit;
