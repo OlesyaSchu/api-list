@@ -1,9 +1,13 @@
 <template>
-  <p>{{ list }}</p>
+  <!-- <p>{{ list }}</p> -->
+  <ol>
+    <Item v-for="item of list" :key="item.Link" :item="item" />
+  </ol>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Item from './Item'
 
 export default {
   mounted() {
@@ -13,6 +17,9 @@ export default {
     ...mapGetters({
       list: 'list/getList',
     }),
+  },
+  components: {
+    Item,
   },
 }
 </script>
