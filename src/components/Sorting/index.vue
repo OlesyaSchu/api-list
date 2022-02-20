@@ -1,6 +1,13 @@
 <template>
   <div class="sorting">
     <input
+      @click="addFilter({ favorite: true })"
+      type="checkbox"
+      id="https"
+      name="https"
+    />
+    <label for="https">Избранное</label>
+    <input
       @click="addFilter({ HTTPS: true })"
       type="checkbox"
       id="https"
