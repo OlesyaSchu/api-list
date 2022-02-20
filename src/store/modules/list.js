@@ -8,6 +8,12 @@ const list = {
   },
   mutations: {
     setList(state, payload) {
+      // add prop favorite for each elem in list
+      payload = payload.map((elem) => {
+        elem.favorite = false
+        return elem
+      })
+      // set list
       state.list = payload
     },
     setFilters(state, payload) {
