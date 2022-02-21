@@ -19,13 +19,10 @@ const list = {
     setFilters(state, payload) {
       const prop = Object.keys(payload)[0]
       // if selected all categories
-      const isAllCategories = prop === 'Category' && payload[prop] === 'All'
-      // if filters contain the filter
-      const hasProperty =
-        Object.prototype.hasOwnProperty.call(state.filters, prop) &&
-        state.filters[prop] === payload[prop]
+      const isAllCategories =
+        prop === 'Category' && payload[prop] === 'Все категории'
       // if found filter with the value
-      if (hasProperty || isAllCategories) {
+      if (payload[prop] === false || isAllCategories) {
         // delete it
         delete state.filters[prop]
       }
