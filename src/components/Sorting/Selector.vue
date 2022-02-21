@@ -25,7 +25,7 @@ import iarrow from '@/components/icons/arrow'
 export default {
   data() {
     return {
-      isOpened: true,
+      isOpened: false,
     }
   },
   props: {
