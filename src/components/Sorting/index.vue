@@ -74,4 +74,11 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.sorting {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+</style>
