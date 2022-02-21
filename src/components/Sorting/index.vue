@@ -1,53 +1,75 @@
 <template>
   <div class="sorting">
-    <input
-      @click="addFilter({ favorite: true })"
-      type="checkbox"
-      id="https"
-      name="https"
-    />
-    <label for="https">Избранное</label>
-    <input
-      @click="addFilter({ HTTPS: true })"
-      type="checkbox"
-      id="https"
-      name="https"
-    />
-    <label for="https">HTTPS</label>
-    <select v-if="categories.length" name="select">
-      <option @click="addFilter({ Category: 'All' })" value="all">All</option>
-      <option
-        @click="addFilter({ Category: category })"
-        v-for="category of categories"
-        :key="category"
-        :value="category"
-      >
-        {{ category }}
-      </option>
-    </select>
+    <span v-for="filter of filters" :key="filter.key" class="filter">
+      <Checkbox
+        v-if="filter.type === 'checkbox'"
+        @changeFilterValue="changeFilterValue(filter)"
+        :filter="filter"
+      />
+      <Selector
+        v-if="filter.type === 'select'"
+        @select="(value) => selectFilter(value, filter)"
+        :filter="filter"
+      />
+    </span>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Checkbox from './Checkbox'
+import Selector from './Selector'
 
 export default {
   data() {
     return {
-      categories: [],
+      filters: [
+        {
+          type: 'checkbox',
+          name: 'Избранное',
+          key: 'favorite',
+          value: false,
+        },
+        {
+          type: 'checkbox',
+          name: 'HTTPS',
+          key: 'HTTPS',
+          value: false,
+        },
+        {
+          type: 'select',
+          name: 'Категория',
+          key: 'Category',
+          value: 'Все категории',
+          values: ['Все категории'],
+        },
+      ],
     }
   },
   mounted() {
     new Promise(() => {
       axios.get('https://api.publicapis.org/categories').then((res) => {
-        this.categories = res.data.categories
+        let filter = this.filters.find((filter) => filter.key === 'Category')
+        filter.values.push(...res.data.categories)
       })
     })
   },
   methods: {
+    changeFilterValue(filter) {
+      filter.value = !filter.value
+      this.addFilter({ [filter.key]: filter.value })
+    },
+    selectFilter(value, filter) {
+      filter.value = value
+      this.addFilter({ [filter.key]: filter.value })
+    },
     addFilter(data) {
       this.$store.commit('list/setFilters', data)
     },
+  },
+  components: {
+    Checkbox,
+    Selector,
   },
 }
 </script>
