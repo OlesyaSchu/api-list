@@ -1,29 +1,25 @@
 # api-list
+SPA-приложение на Vue.js со списком API.  
 
-## Project setup
+Функции:
+- добавление и удаление из избранного
+- фильтрация по категориям
+- сортировка
+
+Верстка выполнена адаптивно под разные размеры экрана.  
+
+Использованы Vuex, Vue Router, SCSS, axios.
+## Установка пакетов для окружения
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Запуск для разработки
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Сборка для production
 ```
 npm run build
 ```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
