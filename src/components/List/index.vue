@@ -37,7 +37,6 @@ export default {
 
 <style lang="scss">
 .list {
-  max-width: 800px;
-  margin: 20px auto;
+  margin: 20px 0;
 }
 </style>

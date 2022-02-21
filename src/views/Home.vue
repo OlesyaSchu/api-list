@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>Список API</h1>
+  <div class="wrapper">
+    <h1 class="title">Список API</h1>
     <Sorting />
     <List />
   </div>
@@ -18,3 +18,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  .title {
+    font-size: 36px;
+    margin-top: 50px;
+  }
+}
+</style>
