@@ -3,12 +3,12 @@
     <span v-for="filter of filters" :key="filter.key" class="filter">
       <Checkbox
         v-if="filter.type === 'checkbox'"
-        @changeFilterValue="changeFilterValue(filter)"
+        @changeFilterValue="check(filter)"
         :filter="filter"
       />
       <Selector
         v-if="filter.type === 'select'"
-        @select="(value) => selectFilter(value, filter)"
+        @select="(value) => select(value, filter)"
         :filter="filter"
       />
     </span>
@@ -43,6 +43,13 @@ export default {
           value: 'Все категории',
           values: ['Все категории'],
         },
+        {
+          type: 'select',
+          name: 'Сортировать по',
+          key: 'sorting',
+          value: 'Category',
+          values: ['Category', 'API', 'Auth'],
+        },
       ],
     }
   },
@@ -55,13 +62,17 @@ export default {
     })
   },
   methods: {
-    changeFilterValue(filter) {
+    check(filter) {
       filter.value = !filter.value
       this.addFilter({ [filter.key]: filter.value })
     },
-    selectFilter(value, filter) {
+    select(value, filter) {
       filter.value = value
-      this.addFilter({ [filter.key]: filter.value })
+      if (filter.key === 'sorting') {
+        this.$store.commit('list/setSorting', value)
+      } else {
+        this.addFilter({ [filter.key]: filter.value })
+      }
     },
     addFilter(data) {
       this.$store.commit('list/setFilters', data)

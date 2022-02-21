@@ -1,21 +1,24 @@
 <template>
-  <span class="selector">
-    <div @click="isOpened = !isOpened">
-      <p class="name">{{ filter.value }}</p>
-      <iarrow :class="{ up: isOpened }" />
-    </div>
-    <div v-if="isOpened" class="options-wrapper">
-      <div class="options">
-        <p
-          @click="selectCategory(option)"
-          v-for="(option, index) of filter.values"
-          :key="index"
-          class="option"
-        >
-          {{ option }}
-        </p>
+  <span>
+    <p class="selector-name">{{ filter.name }}:</p>
+    <span class="selector">
+      <div @click="isOpened = !isOpened">
+        <p class="value">{{ filter.value }}</p>
+        <iarrow :class="{ up: isOpened }" />
       </div>
-    </div>
+      <div v-if="isOpened" class="options-wrapper">
+        <div class="options">
+          <p
+            @click="selectCategory(option)"
+            v-for="(option, index) of filter.values"
+            :key="index"
+            class="option"
+          >
+            {{ option }}
+          </p>
+        </div>
+      </div>
+    </span>
   </span>
 </template>
 
@@ -47,6 +50,10 @@ export default {
 </script>
 
 <style lang="scss">
+.selector-name {
+  display: inline;
+  margin-right: 10px;
+}
 .selector {
   position: relative;
   display: inline-block;
@@ -55,7 +62,7 @@ export default {
   border-radius: 8px;
   cursor: pointer;
 
-  .name {
+  .value {
     display: inline;
     margin-right: 16px;
   }

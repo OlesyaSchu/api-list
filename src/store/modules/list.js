@@ -5,12 +5,14 @@ const list = {
   state: {
     list: [],
     filters: {},
+    sorting: '',
   },
   mutations: {
     setList(state, payload) {
       // add prop favorite for each elem in list
       payload = payload.map((elem) => {
         elem.favorite = false
+        if (!elem.Auth) elem.Auth = 'No'
         return elem
       })
       // set list
@@ -39,19 +41,29 @@ const list = {
         if (item.Link === payload) item.favorite = !item.favorite
       })
     },
+    setSorting(state, payload) {
+      state.sorting = payload
+    },
   },
   actions: {
     async loadFullList({ commit }) {
-      await axios.get('https://api.publicapis.org/entries').then((res) => {
-        commit('setList', res.data.entries)
-      })
+      await axios
+        .get('https://api.publicapis.org/entries', {
+          // full list is too long
+          params: { description: 'the' },
+        })
+        .then((res) => {
+          commit('setList', res.data.entries)
+        })
     },
   },
   getters: {
     getList: (state, getters) => {
-      return Object.keys(state.filters).length
+      let list = Object.keys(state.filters).length
         ? getters.getFilteredList
         : state.list
+      if (state.sorting) list = getters.getSortedList(list)
+      return list
     },
     getFilteredList: (state) => {
       let newList = []
@@ -61,6 +73,18 @@ const list = {
         return Object.keys(state.filters).reduce((prev, filter) => {
           return prev && item[filter] === state.filters[filter]
         }, true)
+      })
+      return newList
+    },
+    getSortedList: (state) => (list) => {
+      let newList = list.slice()
+      const category = state.sorting
+      newList = newList.sort((prev, val) => {
+        if (prev[category].toLowerCase() > val[category].toLowerCase()) return 1
+        if (prev[category].toLowerCase() < val[category].toLowerCase())
+          return -1
+        if (prev[category].toLowerCase() === val[category].toLowerCase())
+          return 1
       })
       return newList
     },
