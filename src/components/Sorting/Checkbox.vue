@@ -22,8 +22,13 @@ export default {
 
 <style lang="scss">
 .checkbox {
+  & > * {
+    vertical-align: middle;
+  }
   .name {
     display: inline;
+    margin-left: 8px;
+    padding-top: 4px;
   }
 }
 </style>
