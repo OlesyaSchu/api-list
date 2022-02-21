@@ -1,8 +1,8 @@
 <template>
   <tr class="item">
-    <td v-if="isHead">{{ item.API }}</td>
-    <td v-else>
-      <a class="link" :href="item.Link">{{ item.API }}</a>
+    <td class="link" v-if="isHead">{{ item.API }}</td>
+    <td class="link" v-else>
+      <a class="link-text" :href="item.Link">{{ item.API }}</a>
     </td>
     <td class="description">{{ item.Description }}</td>
     <td class="auth">{{ item.Auth }}</td>
@@ -56,8 +56,11 @@ export default {
     padding: 20px 10px;
   }
   .link {
-    color: rgb(123, 111, 228);
-    text-decoration: none;
+    width: 15%;
+    &-text {
+      color: rgb(123, 111, 228);
+      text-decoration: none;
+    }
   }
   .description {
     width: 45%;
@@ -73,6 +76,29 @@ export default {
   }
   .favorite {
     width: 5%;
+  }
+
+  @media (max-width: 992px) {
+    & > * {
+      padding: 16px 8px;
+    }
+    .link {
+      max-width: 100px;
+    }
+    .category {
+      max-width: 80px;
+    }
+  }
+  @media (max-width: 768px) {
+    & > * {
+      padding: 10px 6px;
+    }
+    .description {
+      max-width: 160px;
+    }
+    .auth {
+      max-width: 60px;
+    }
   }
 }
 </style>

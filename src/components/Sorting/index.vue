@@ -80,5 +80,10 @@ export default {
   display: flex;
   gap: 20px;
   align-items: center;
+  flex-wrap: wrap;
+  @media (max-width: 576px) {
+    margin-top: 16px;
+    gap: 10px;
+  }
 }
 </style>

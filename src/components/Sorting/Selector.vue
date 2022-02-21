@@ -4,7 +4,7 @@
       <p class="name">{{ filter.value }}</p>
       <iarrow :class="{ up: isOpened }" />
     </div>
-    <div v-if="isOpened" class="wrapper">
+    <div v-if="isOpened" class="options-wrapper">
       <div class="options">
         <p
           @click="selectCategory(option)"
@@ -59,7 +59,7 @@ export default {
     display: inline;
     margin-right: 16px;
   }
-  .wrapper {
+  .options-wrapper {
     padding: 6px 4px;
     position: absolute;
     top: 28px;
@@ -93,6 +93,13 @@ export default {
           border-radius: 4px;
           background: #e6e6e6;
         }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .options-wrapper {
+      .options {
+        min-width: 158px;
       }
     }
   }

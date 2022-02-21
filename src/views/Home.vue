@@ -27,5 +27,16 @@ export default {
     font-size: 36px;
     margin-top: 50px;
   }
+  @media (max-width: 768px) {
+    max-width: calc(100% - 20px);
+  }
+  @media (max-width: 576px) {
+    margin: 0 20px;
+
+    .title {
+      font-size: 30px;
+      margin-top: 20px;
+    }
+  }
 }
 </style>

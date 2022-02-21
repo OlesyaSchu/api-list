@@ -1,8 +1,10 @@
 <template>
-  <table class="list">
-    <Item :item="head" :isHead="true" />
-    <Item v-for="item of list" :key="item.Link" :item="item" />
-  </table>
+  <div class="list-wrapper">
+    <table class="list">
+      <Item :item="head" :isHead="true" />
+      <Item v-for="item of list" :key="item.Link" :item="item" />
+    </table>
+  </div>
 </template>
 
 <script>
@@ -36,7 +38,24 @@ export default {
 </script>
 
 <style lang="scss">
-.list {
-  margin: 20px 0;
+.list-wrapper {
+  .list {
+    margin: 20px 0;
+  }
+  @media (max-width: 992px) {
+    .list {
+      max-width: 800px;
+    }
+  }
+  @media (max-width: 576px) {
+    width: 100%;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .list {
+      margin: 10px 0;
+    }
+  }
 }
 </style>
